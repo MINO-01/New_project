@@ -1,29 +1,34 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import TodoCounter from './TodoCounter';
-import TodoInput from './ToDoInput';
-import TodoList from './TodoList';
+import TodoCounter from './components/TodoCounter';
+import TodoInput from './components/TodoInput';
+import TodoList from './components/TodoList';
+
 
 const Container = styled.div`
-  width: 100vw;
   height: 100vh;
-  background: #f7f7f7;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
 `;
 
 const Title = styled.h1`
+  margin-bottom: 24px;
+  font-size: 45px;
+  color: #333;
   text-align: center;
-  color: black;
 `;
 
 const SubTitle = styled.h2`
   text-align: center;
   color: black;
 `;
-function TodoManager() {
+function TodoPage() {
+  const { username } = useParams(); // ✅ 주소에서 username을 바로 가져옴
+
   const [todos, setTodos] = useState([]);
   const [doneCount, setDoneCount] = useState(0);
 
@@ -38,7 +43,7 @@ function TodoManager() {
 
   return (
     <Container>
-      <Title>✅ To do list</Title>
+      <Title>{username}님의 To do list</Title>
       <SubTitle>하루 일정</SubTitle>
       <TodoInput todos={todos} setTodos={setTodos} />
       <TodoList todos={todos} setTodos={setTodos} />
@@ -47,4 +52,4 @@ function TodoManager() {
   );
 }
 
-export default TodoManager;
+export default TodoPage;
